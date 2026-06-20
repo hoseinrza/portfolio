@@ -3,32 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amirhossein Rezazadeh | Premium Software Engineer</title>
+    <title>Chemistry meets Code | Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            dark: '#03050a',
-                            card: '#0f141e',
-                            cardHover: '#18202f',
-                            accent: '#3b82f6',
-                            accentLight: '#60a5fa',
-                            textMuted: '#8b949e'
+                        scientific: {
+                            blue: '#0B1F3B',
+                            teal: '#2DD4BF',
+                            cyan: '#38BDF8',
+                        },
+                        surface: {
+                            light: '#F8FAFC',
+                            muted: '#E2E8F0',
+                        },
+                        text: {
+                            primary: '#0F172A',
+                            secondary: '#475569',
                         }
                     },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 30px -5px rgba(11, 31, 59, 0.08)',
+                        'glow': '0 0 20px rgba(56, 189, 248, 0.4)',
+                    },
                     animation: {
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'blob': 'blob 10s infinite',
+                        'float': 'float 6s ease-in-out infinite',
                     },
                     keyframes: {
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(40px, -60px) scale(1.2)' },
-                            '66%': { transform: 'translate(-30px, 30px) scale(0.8)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
                         }
                     }
                 }
@@ -36,297 +51,272 @@
         }
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-        
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            cursor: none; /* Hide default cursor for custom one */
+            background-color: #F8FAFC;
         }
 
-        /* Background Noise Texture */
-        .bg-noise {
+        /* Subtle Chemistry Pattern Background */
+        .bg-pattern {
+            background-image: radial-gradient(#E2E8F0 2px, transparent 2px);
+            background-size: 40px 40px;
+            opacity: 0.5;
             position: fixed;
             inset: 0;
-            z-index: 0;
-            opacity: 0.03;
+            z-index: -1;
             pointer-events: none;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* Mouse Glow Effect */
-        .glow-effect { position: relative; }
-        .glow-effect::before {
+        /* Connecting lines simulating molecular bonds */
+        .molecule-bg::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background: radial-gradient(600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(59, 130, 246, 0.08), transparent 40%);
-            z-index: 1;
-            pointer-events: none;
-            border-radius: inherit;
+            width: 150px;
+            height: 1px;
+            background: linear-gradient(90deg, #38BDF8, transparent);
+            top: 50%;
+            left: 100%;
+            transform: rotate(-45deg);
+            opacity: 0.3;
         }
 
-        /* Scroll Reveal Utility Classes */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Custom Cursor */
-        .cursor-dot {
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
             width: 8px;
-            height: 8px;
-            background-color: #60a5fa;
-            position: fixed;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: transform 0.1s ease-out;
         }
-        .cursor-outline {
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(96, 165, 250, 0.5);
-            position: fixed;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        ::-webkit-scrollbar-track {
+            background: #F8FAFC;
         }
-        
-        /* 3D Tilt Wrapper */
-        .tilt-card {
-            transform-style: preserve-3d;
-            transform: perspective(1000px);
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
         }
-        .tilt-content {
-            transform: translateZ(30px); /* Pushes content forward for 3D effect */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
         }
     </style>
 </head>
-<body class="bg-brand-dark text-slate-100 antialiased selection:bg-brand-accent selection:text-white glow-effect min-h-screen overflow-x-hidden">
+<body class="font-sans text-text-primary antialiased selection:bg-scientific-cyan selection:text-white">
 
-    <div class="cursor-dot hidden md:block"></div>
-    <div class="cursor-outline hidden md:block"></div>
-    
-    <div class="bg-noise"></div>
+    <div class="bg-pattern"></div>
 
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[800px] pointer-events-none overflow-hidden z-0">
-        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] animate-blob"></div>
-        <div class="absolute top-[20%] right-[-10%] w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[100px] animate-blob animation-delay-2000"></div>
-    </div>
+    <div class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-scientific-cyan/10 rounded-full blur-[120px] pointer-events-none z-[-1]"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-scientific-teal/10 rounded-full blur-[120px] pointer-events-none z-[-1]"></div>
 
-    <header class="fixed top-0 left-0 w-full z-50 bg-brand-dark/50 backdrop-blur-xl border-b border-gray-800/40 transition-all duration-300" id="header">
-        <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-            <a href="#" class="text-xl font-extrabold tracking-tight text-white flex items-center gap-1.5 hover-target">
-                <span class="w-2.5 h-2.5 rounded-full bg-brand-accent animate-pulse shadow-[0_0_10px_rgba(59,130,246,0.6)]"></span>
-                AR<span class="text-brand-accentLight">.dev</span>
+    <nav class="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-lg border-b border-surface-muted transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="font-display font-bold text-2xl text-scientific-blue tracking-tight hover:opacity-80 transition-opacity">
+                AR<span class="text-scientific-cyan">.</span>
             </a>
-            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-brand-textMuted">
-                <a href="#about" class="hover:text-white transition-colors hover-target">About</a>
-                <a href="#experience" class="hover:text-white transition-colors hover-target">Experience</a>
-                <a href="#projects" class="hover:text-white transition-colors hover-target">Projects</a>
-                <a href="#skills" class="hover:text-white transition-colors hover-target">Skills</a>
-                <a href="mailto:amirhorza@gmail.com" class="px-5 py-2 rounded-lg bg-white text-black hover:bg-gray-200 transition-all font-bold shadow-[0_0_15px_rgba(255,255,255,0.1)] hover-target">Let's Talk</a>
-            </div>
-        </nav>
-    </header>
+            <ul class="hidden md:flex space-x-10 text-sm font-medium text-text-secondary">
+                <li><a href="#about" class="hover:text-scientific-cyan transition-colors">About</a></li>
+                <li><a href="#projects" class="hover:text-scientific-cyan transition-colors">Projects</a></li>
+                <li><a href="#skills" class="hover:text-scientific-cyan transition-colors">Skills</a></li>
+            </ul>
+            <a href="#contact" class="hidden md:inline-flex px-5 py-2.5 rounded-xl bg-surface-muted/50 text-scientific-blue font-medium hover:bg-surface-muted transition-colors border border-transparent hover:border-surface-muted">
+                Contact Me
+            </a>
+        </div>
+    </nav>
 
-    <section class="min-h-screen flex items-center justify-center px-6 pt-16 max-w-5xl mx-auto relative z-10">
-        <div class="text-center space-y-8 reveal active">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-900 border border-gray-800 text-brand-textMuted text-xs font-semibold uppercase tracking-wider backdrop-blur-sm">
-                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                SBU Student & Frontend Engineer
+    <section id="about" class="relative max-w-7xl mx-auto px-6 pt-40 pb-24 flex flex-col md:flex-row items-center min-h-[90vh]">
+        <div class="w-full md:w-1/2 space-y-8 z-10">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-surface-muted text-scientific-blue text-xs font-semibold tracking-wider shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-scientific-teal animate-pulse"></span>
+                Software Engineer & Chemist
             </div>
-            <h1 class="text-5xl md:text-8xl font-extrabold tracking-tighter text-white leading-[1.1]">
-                Engineering <br>
-                <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-300 to-white">Robust Interfaces.</span>
+            <h1 class="text-5xl md:text-7xl font-display font-bold text-scientific-blue leading-[1.15]">
+                Chemistry meets <br />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-scientific-blue via-scientific-cyan to-scientific-teal">
+                    Code.
+                </span>
             </h1>
-            <p class="text-lg md:text-xl text-brand-textMuted max-w-2xl mx-auto font-medium leading-relaxed">
-                Hi, I'm <strong class="text-slate-200 font-bold">Amirhossein Rezazadeh</strong>. I architect high-performance web applications, specialized in React, Node.js ecosystems, and complex data visualizations.
+            <p class="text-lg text-text-secondary max-w-lg leading-relaxed">
+                A minimal, scalable, and scientifically inspired space. I architect high-performance web applications and translate complex data into robust digital experiences.
             </p>
-            <div class="pt-6 flex flex-wrap justify-center gap-4">
-                <a href="#projects" class="hover-target px-8 py-4 rounded-xl bg-brand-accent hover:bg-blue-500 font-bold text-sm transition-all shadow-[0_0_20px_rgba(59,130,246,0.3)] group flex items-center gap-2">
-                    Explore Architecture 
-                    <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </a>
-                <a href="https://github.com/hoseinrza" target="_blank" class="hover-target px-8 py-4 rounded-xl bg-transparent hover:bg-gray-900 border border-gray-700 font-bold text-sm transition-all flex items-center gap-2 text-white">
-                    GitHub Ecosystem
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section id="experience" class="py-24 max-w-4xl mx-auto px-6 border-t border-gray-800/40 relative z-10">
-        <h2 class="text-3xl font-extrabold mb-16 text-white tracking-tight flex items-center gap-3 reveal">
-            <span class="w-2 h-6 bg-brand-accent rounded-full shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span> Engineering Timeline
-        </h2>
-        <div class="space-y-8 relative before:absolute before:inset-y-0 before:left-4 before:w-px before:bg-gradient-to-b before:from-brand-accent before:via-gray-800 before:to-transparent">
             
-            <div class="relative pl-12 group reveal tilt-card">
-                <div class="absolute left-[11.5px] top-3 w-2.5 h-2.5 rounded-full bg-brand-accent shadow-[0_0_10px_rgba(59,130,246,0.8)] transition-all"></div>
-                <div class="bg-brand-card border border-gray-800/60 rounded-2xl p-8 hover:border-gray-600 transition-colors shadow-2xl tilt-content">
-                    <div class="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-6">
-                        <div>
-                            <h3 class="text-2xl font-bold text-white tracking-tight">Front-End Developer</h3>
-                            <p class="text-sm text-brand-accentLight font-semibold mt-1">Tamland <span class="text-gray-600 mx-2">•</span> React Native & WordPress/WooCommerce</p>
-                        </div>
-                        <span class="text-xs font-bold bg-gray-900 border border-gray-800 text-brand-textMuted px-3 py-1.5 rounded-full mt-4 md:mt-0">2026</span>
+            <div class="flex flex-wrap gap-4 pt-4">
+                <a href="#projects" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-scientific-blue to-[#1e3a8a] text-white font-medium shadow-[0_4px_15px_rgba(11,31,59,0.2)] hover:shadow-soft hover:-translate-y-0.5 transition-all duration-300">
+                    View Projects
+                </a>
+                <a href="https://github.com/hoseinrza" target="_blank" class="px-7 py-3.5 rounded-xl border border-surface-muted bg-white text-scientific-blue font-medium hover:border-scientific-cyan hover:text-scientific-cyan transition-all duration-300 flex items-center gap-2">
+                    GitHub Profile
+                </a>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/2 mt-20 md:mt-0 flex justify-center relative z-10 animate-float">
+            <div class="relative w-80 h-80 molecule-bg">
+                <div class="absolute inset-0 border border-scientific-cyan/30 rounded-full animate-[spin_10s_linear_infinite]"></div>
+                <div class="absolute inset-4 border border-scientific-teal/20 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-32 h-32 bg-gradient-to-br from-scientific-blue to-scientific-cyan rounded-full shadow-glow flex items-center justify-center text-white font-display font-bold text-2xl">
+                        React
                     </div>
-                    <p class="text-brand-textMuted leading-relaxed">
-                        Engaged in technical screenings and architectural discussions focused on modern UI development, WooCommerce integration, and scaling complex architectures for retail platforms.
+                </div>
+                <div class="absolute top-0 left-1/2 w-8 h-8 -ml-4 -mt-4 bg-white border-2 border-scientific-teal rounded-full shadow-sm flex items-center justify-center text-[10px] font-bold text-scientific-blue">Js</div>
+                <div class="absolute bottom-10 right-0 w-10 h-10 bg-white border-2 border-scientific-cyan rounded-full shadow-sm flex items-center justify-center text-xs font-bold text-scientific-blue">Py</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-24 bg-white border-y border-surface-muted relative z-10">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <div class="mb-16 md:flex justify-between items-end">
+                <div>
+                    <h2 class="text-4xl font-display font-bold text-scientific-blue mb-4">
+                        Featured <span class="text-scientific-cyan">Projects</span>
+                    </h2>
+                    <p class="text-lg text-text-secondary max-w-xl">
+                        A selection of my recent work bridging the gap between scientific complexity and elegant digital interfaces.
                     </p>
                 </div>
+                
+                <div class="hidden md:flex gap-6 mt-6 md:mt-0 border-b border-surface-muted pb-2">
+                    <span class="cursor-pointer text-sm font-semibold text-scientific-blue relative after:absolute after:bottom-[-9px] after:left-0 after:w-full after:h-[2px] after:bg-scientific-cyan">All</span>
+                    <span class="cursor-pointer text-sm font-medium text-text-secondary hover:text-scientific-blue transition-colors">Web Dev</span>
+                    <span class="cursor-pointer text-sm font-medium text-text-secondary hover:text-scientific-blue transition-colors">Data Viz</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="group bg-[#F8FAFC] rounded-[16px] border border-surface-muted overflow-hidden transition-all duration-400 hover:-translate-y-1.5 hover:shadow-soft hover:border-scientific-cyan/40 flex flex-col h-full">
+                    <div class="h-48 w-full bg-white border-b border-surface-muted flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[radial-gradient(#2DD4BF_1px,transparent_1px)] [background-size:16px_16px] opacity-10"></div>
+                        <span class="text-scientific-blue/40 font-display font-semibold text-xs tracking-[0.2em] uppercase relative z-10">
+                            Fullstack
+                        </span>
+                        <div class="absolute inset-0 bg-gradient-to-t from-scientific-blue/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <a href="#" class="text-white text-sm font-medium flex items-center gap-2 hover:text-scientific-cyan transition-colors">
+                                View Live Project
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold font-display text-scientific-blue mb-3 group-hover:text-scientific-cyan transition-colors">
+                            Modern Chemistry Platform
+                        </h3>
+                        <p class="text-sm text-text-secondary mb-8 leading-relaxed flex-grow">
+                            A robust scientific blog and administrative panel developed for chemistry education with secure content management.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-auto">
+                            <span class="px-3 py-1 text-xs font-medium bg-white text-scientific-blue rounded-full border border-surface-muted">React</span>
+                            <span class="px-3 py-1 text-xs font-medium bg-white text-scientific-blue rounded-full border border-surface-muted">Django</span>
+                            <span class="px-3 py-1 text-xs font-medium bg-white text-scientific-blue rounded-full border border-surface-muted">Tailwind</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group bg-[#F8FAFC] rounded-[16px] border border-surface-muted overflow-hidden transition-all duration-400 hover:-translate-y-1.5 hover:shadow-soft hover:border-scientific-cyan/40 flex flex-col h-full">
+                    <div class="h-48 w-full bg-white border-b border-surface-muted flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[radial-gradient(#38BDF8_1px,transparent_1px)] [background-size:16px_16px] opacity-10"></div>
+                        <span class="text-scientific-blue/40 font-display font-semibold text-xs tracking-[0.2em] uppercase relative z-10">
+                            Data Viz
+                        </span>
+                        <div class="absolute inset-0 bg-gradient-to-t from-scientific-blue/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <a href="#" class="text-white text-sm font-medium flex items-center gap-2 hover:text-scientific-cyan transition-colors">
+                                View Live Project
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold font-display text-scientific-blue mb-3 group-hover:text-scientific-cyan transition-colors">
+                            Progeny: Genetic Viz
+                        </h3>
+                        <p class="text-sm text-text-secondary mb-8 leading-relaxed flex-grow">
+                            Complex Genetic Pedigree Visualization platform implementing advanced layout algorithms for family histories.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-auto">
+                            <span class="px-3 py-1 text-xs font-medium bg-white text-scientific-blue rounded-full border border-surface-muted">D3.js</span>
+                            <span class="px-3 py-1 text-xs font-medium bg-white text-scientific-blue rounded-full border border-surface-muted">SVG</span>
+                            <span class="px-3 py-1 text-xs font-medium bg-white text-scientific-blue rounded-full border border-surface-muted">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group bg-[#F8FAFC] rounded-[16px] border border-surface-muted overflow-hidden transition-all duration-400 hover:-translate-y-1.5 hover:shadow-soft hover:border-scientific-cyan/40 flex flex-col h-full">
+                    <div class="h-48 w-full bg-white border-b border-surface-muted flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-[radial-gradient(#0B1F3B_1px,transparent_1px)] [background-size:16px_16px] opacity-10"></div>
+                        <span class="text-scientific-blue/40 font-display font-semibold text-xs tracking-[0.2em] uppercase relative z-10">
+                            Machine Learning
+                        </span>
+                        <div class="absolute inset-0 bg-gradient-to-t from-scientific-blue/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                            <a href="#" class="text-white text-sm font-medium flex items-center gap-2 hover:text-scientific-cyan transition-colors">
+                                View Live Project
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold font-display text-scientific-blue mb-3 group-hover:text-scientific-cyan transition-colors">
+                            Molecular Data Parser
+                        </h3>
+                        <p class="text-sm text-text-secondary mb-8 leading-relaxed flex-grow">
+                            A Python-based tool for parsing and analyzing heavy molecular weight datasets with a clean web interface.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-auto">
+                            <span class="px-3 py-1 text-xs font-medium bg-white text-scientific-blue rounded-full border border-surface-muted">Python</span>
+                            <span class="px-3 py-1 text-xs font-medium bg-white text-scientific-blue rounded-full border border-surface-muted">Flask</span>
+                            <span class="px-3 py-1 text-xs font-medium bg-white text-scientific-blue rounded-full border border-surface-muted">Pandas</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-24 relative z-10">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-display font-bold text-scientific-blue mb-12">
+                Technical <span class="text-scientific-cyan">Arsenal</span>
+            </h2>
+            <div class="flex flex-wrap justify-center gap-4">
+                <div class="px-5 py-2.5 bg-white border border-surface-muted rounded-full text-sm font-medium text-scientific-blue shadow-sm hover:border-scientific-cyan hover:shadow-soft transition-all cursor-default">React & Next.js</div>
+                <div class="px-5 py-2.5 bg-white border border-surface-muted rounded-full text-sm font-medium text-scientific-blue shadow-sm hover:border-scientific-teal hover:shadow-soft transition-all cursor-default">TypeScript</div>
+                <div class="px-5 py-2.5 bg-white border border-surface-muted rounded-full text-sm font-medium text-scientific-blue shadow-sm hover:border-scientific-cyan hover:shadow-soft transition-all cursor-default">Node.js</div>
+                <div class="px-5 py-2.5 bg-white border border-surface-muted rounded-full text-sm font-medium text-scientific-blue shadow-sm hover:border-scientific-teal hover:shadow-soft transition-all cursor-default">D3.js / Data Viz</div>
+                <div class="px-5 py-2.5 bg-white border border-surface-muted rounded-full text-sm font-medium text-scientific-blue shadow-sm hover:border-scientific-cyan hover:shadow-soft transition-all cursor-default">Tailwind CSS</div>
+                <div class="px-5 py-2.5 bg-white border border-surface-muted rounded-full text-sm font-medium text-scientific-blue shadow-sm hover:border-scientific-teal hover:shadow-soft transition-all cursor-default">Python & Django</div>
+                <div class="px-5 py-2.5 bg-white border border-surface-muted rounded-full text-sm font-medium text-scientific-blue shadow-sm hover:border-scientific-cyan hover:shadow-soft transition-all cursor-default">Analytical Chemistry</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 bg-white border-t border-surface-muted relative z-10">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-display font-bold text-scientific-blue mb-4">Let's Connect</h2>
+                <p class="text-text-secondary">Interested in collaborating or have a question? Drop me a message.</p>
             </div>
             
-        </div>
-    </section>
-
-    <section id="projects" class="py-24 max-w-6xl mx-auto px-6 border-t border-gray-800/40 relative z-10">
-        <h2 class="text-3xl font-extrabold mb-16 text-white tracking-tight flex items-center gap-3 reveal">
-            <span class="w-2 h-6 bg-brand-accent rounded-full shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span> Featured Architecture
-        </h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="bg-brand-card border border-gray-800/60 rounded-2xl p-8 hover:border-gray-600 transition-all shadow-xl group reveal tilt-card">
-                <div class="tilt-content">
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="w-12 h-12 rounded-xl bg-blue-900/30 border border-blue-500/20 flex items-center justify-center text-brand-accentLight">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                        </div>
-                        <span class="text-xs font-bold bg-blue-900/20 text-brand-accent px-3 py-1 rounded-full border border-blue-800/30">Data Viz</span>
+            <form class="space-y-6 bg-[#F8FAFC] p-8 rounded-[16px] border border-surface-muted shadow-sm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-scientific-blue">Name</label>
+                        <input type="text" class="w-full px-4 py-3 rounded-xl border border-surface-muted bg-white focus:outline-none focus:border-scientific-cyan focus:ring-1 focus:ring-scientific-cyan transition-colors" placeholder="John Doe">
                     </div>
-                    <h3 class="text-2xl font-bold text-white mb-3">Progeny</h3>
-                    <p class="text-brand-textMuted mb-6 leading-relaxed">
-                        A complex Genetic Pedigree Visualization platform. Implemented advanced layout algorithms utilizing interactive SVG and D3.js to chart family histories and genetic attributes.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-xs font-medium px-2.5 py-1 bg-gray-900 text-gray-300 rounded-md border border-gray-800">D3.js</span>
-                        <span class="text-xs font-medium px-2.5 py-1 bg-gray-900 text-gray-300 rounded-md border border-gray-800">SVG</span>
-                        <span class="text-xs font-medium px-2.5 py-1 bg-gray-900 text-gray-300 rounded-md border border-gray-800">JavaScript</span>
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium text-scientific-blue">Email</label>
+                        <input type="email" class="w-full px-4 py-3 rounded-xl border border-surface-muted bg-white focus:outline-none focus:border-scientific-cyan focus:ring-1 focus:ring-scientific-cyan transition-colors" placeholder="john@example.com">
                     </div>
                 </div>
-            </div>
-
-            <div class="bg-brand-card border border-gray-800/60 rounded-2xl p-8 hover:border-gray-600 transition-all shadow-xl group reveal tilt-card">
-                <div class="tilt-content">
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="w-12 h-12 rounded-xl bg-purple-900/30 border border-purple-500/20 flex items-center justify-center text-purple-400">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                        </div>
-                        <span class="text-xs font-bold bg-purple-900/20 text-purple-400 px-3 py-1 rounded-full border border-purple-800/30">Fullstack</span>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-3">Modern Chemistry</h3>
-                    <p class="text-brand-textMuted mb-6 leading-relaxed">
-                        A robust scientific blog and administrative panel developed for chemistry education. Built with custom styling, React templates, and secure Django models for content management.
-                    </p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="text-xs font-medium px-2.5 py-1 bg-gray-900 text-gray-300 rounded-md border border-gray-800">React</span>
-                        <span class="text-xs font-medium px-2.5 py-1 bg-gray-900 text-gray-300 rounded-md border border-gray-800">Django</span>
-                        <span class="text-xs font-medium px-2.5 py-1 bg-gray-900 text-gray-300 rounded-md border border-gray-800">CSS Styling</span>
-                    </div>
+                <div class="space-y-2">
+                    <label class="text-sm font-medium text-scientific-blue">Message</label>
+                    <textarea rows="4" class="w-full px-4 py-3 rounded-xl border border-surface-muted bg-white focus:outline-none focus:border-scientific-cyan focus:ring-1 focus:ring-scientific-cyan transition-colors" placeholder="Your message here..."></textarea>
                 </div>
-            </div>
+                <button type="button" class="w-full py-4 rounded-xl bg-gradient-to-r from-scientific-blue to-[#1e3a8a] text-white font-medium hover:shadow-soft hover:opacity-90 transition-all duration-300">
+                    Send Message
+                </button>
+            </form>
         </div>
     </section>
 
-    <section id="skills" class="py-24 max-w-4xl mx-auto px-6 border-t border-gray-800/40 relative z-10">
-        <h2 class="text-3xl font-extrabold mb-12 text-white tracking-tight flex items-center gap-3 reveal">
-            <span class="w-2 h-6 bg-brand-accent rounded-full shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span> Technical Arsenal
-        </h2>
-        <div class="flex flex-wrap gap-4 reveal">
-            <div class="px-5 py-3 rounded-xl bg-brand-card border border-gray-800 hover:border-blue-500/50 hover:shadow-[0_0_15px_rgba(59,130,246,0.2)] transition-all flex items-center gap-2 cursor-default">
-                <span class="w-2 h-2 rounded-full bg-blue-400"></span><span class="font-semibold text-white">React & Next.js</span>
-            </div>
-            <div class="px-5 py-3 rounded-xl bg-brand-card border border-gray-800 hover:border-blue-500/50 hover:shadow-[0_0_15px_rgba(59,130,246,0.2)] transition-all flex items-center gap-2 cursor-default">
-                <span class="w-2 h-2 rounded-full bg-blue-500"></span><span class="font-semibold text-white">TypeScript</span>
-            </div>
-            <div class="px-5 py-3 rounded-xl bg-brand-card border border-gray-800 hover:border-green-500/50 hover:shadow-[0_0_15px_rgba(34,197,94,0.2)] transition-all flex items-center gap-2 cursor-default">
-                <span class="w-2 h-2 rounded-full bg-green-500"></span><span class="font-semibold text-white">Node.js</span>
-            </div>
-            <div class="px-5 py-3 rounded-xl bg-brand-card border border-gray-800 hover:border-orange-500/50 hover:shadow-[0_0_15px_rgba(249,115,22,0.2)] transition-all flex items-center gap-2 cursor-default">
-                <span class="w-2 h-2 rounded-full bg-orange-500"></span><span class="font-semibold text-white">D3.js / Data Viz</span>
-            </div>
-            <div class="px-5 py-3 rounded-xl bg-brand-card border border-gray-800 hover:border-teal-500/50 hover:shadow-[0_0_15px_rgba(20,184,166,0.2)] transition-all flex items-center gap-2 cursor-default">
-                <span class="w-2 h-2 rounded-full bg-teal-400"></span><span class="font-semibold text-white">Tailwind CSS & Vite</span>
-            </div>
-            <div class="px-5 py-3 rounded-xl bg-brand-card border border-gray-800 hover:border-indigo-500/50 hover:shadow-[0_0_15px_rgba(99,102,241,0.2)] transition-all flex items-center gap-2 cursor-default">
-                <span class="w-2 h-2 rounded-full bg-indigo-400"></span><span class="font-semibold text-white">PHP & WordPress/WooCommerce</span>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-10 border-t border-gray-800/40 text-center relative z-10">
-        <p class="text-brand-textMuted text-sm font-medium">
-            © 2026 Amirhossein Rezazadeh. Crafted in Tehran. 
-        </p>
+    <footer class="py-10 text-center text-sm text-text-secondary relative z-10">
+        <p>© 2026 Crafted with precision. Chemistry & Code.</p>
     </footer>
 
-    <script>
-        // Custom Cursor Logic
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorOutline = document.querySelector('.cursor-outline');
-        const hoverTargets = document.querySelectorAll('.hover-target, a, button');
-
-        window.addEventListener('mousemove', (e) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
-
-            // Update custom cursor position
-            if (cursorDot && cursorOutline) {
-                cursorDot.style.left = `${posX}px`;
-                cursorDot.style.top = `${posY}px`;
-                
-                // Add slight delay to outline for smooth effect
-                cursorOutline.animate({
-                    left: `${posX}px`,
-                    top: `${posY}px`
-                }, { duration: 500, fill: "forwards" });
-            }
-
-            // Update background glow effect
-            document.body.style.setProperty('--mouse-x', `${posX}px`);
-            document.body.style.setProperty('--mouse-y', `${posY}px`);
-        });
-
-        // Add hover effect to interactive elements
-        hoverTargets.forEach(target => {
-            target.addEventListener('mouseenter', () => {
-                if (cursorOutline) {
-                    cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
-                    cursorOutline.style.backgroundColor = 'rgba(96, 165, 250, 0.1)';
-                }
-            });
-            target.addEventListener('mouseleave', () => {
-                if (cursorOutline) {
-                    cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
-                    cursorOutline.style.backgroundColor = 'transparent';
-                }
-            });
-        });
-
-        // Scroll Reveal Logic
-        const revealElements = document.querySelectorAll('.reveal');
-        
-        const revealOnScroll = () => {
-            const windowHeight = window.innerHeight;
-            revealElements.forEach(el => {
-                const elementTop = el.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 100) {
-                    el.classList.add('active');
-                }
-            });
-        };
-
-        window.addEventListener('scroll', revealOnScroll);
-        // Initial check
-        setTimeout(revealOnScroll, 100);
-    </script>
 </body>
 </html>
