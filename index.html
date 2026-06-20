@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Amirhossein · Senior Front-end Engineer</title>
 
-    <!-- Font & Icons -->
+    <!-- Font & Icons with display=swap -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
@@ -16,7 +16,6 @@
                    CSS CUSTOM PROPERTIES — LIGHT & DARK THEMES
                    ============================================================ */
         :root {
-            /* --- Light (default) --- */
             --bg-primary: #fafafa;
             --bg-secondary: #ffffff;
             --bg-elevated: #ffffff;
@@ -59,7 +58,7 @@
 
             --text-primary: #eeeeee;
             --text-secondary: #b0b0b0;
-            --text-muted: #777777;
+            --text-muted: #a0a0a0;   /* improved contrast */
             --text-inverse: #0a0a0a;
 
             --border-light: rgba(255, 255, 255, 0.06);
@@ -102,6 +101,36 @@
             padding: 0 24px;
         }
 
+        /* Skip link – hidden until focused */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--accent);
+            color: #fff;
+            padding: 8px 16px;
+            z-index: 2000;
+            border-radius: 0 0 var(--radius-sm) 0;
+            font-weight: 600;
+            transition: top 0.2s;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Screen reader only utility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border: 0;
+        }
+
         a {
             color: inherit;
             text-decoration: none;
@@ -118,6 +147,17 @@
             border: none;
             background: none;
             color: inherit;
+        }
+
+        /* Focus visible styles */
+        *:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+        button:focus-visible,
+        a:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
         }
 
         /* ============================================================
@@ -233,7 +273,8 @@
         .nav-links a:hover {
             color: var(--text-primary);
         }
-        .nav-links a:hover::after {
+        .nav-links a:hover::after,
+        .nav-links a:focus-visible::after {
             width: 100%;
         }
 
@@ -270,7 +311,7 @@
 
         @media (max-width: 768px) {
             .nav-links {
-                display: none;
+                display: flex;
                 flex-direction: column;
                 gap: 12px;
                 position: absolute;
@@ -278,13 +319,18 @@
                 left: 24px;
                 right: 24px;
                 background: var(--bg-elevated);
-                padding: 24px;
+                padding: 0;
                 border-radius: var(--radius-md);
                 border: 1px solid var(--border-light);
                 box-shadow: var(--shadow-lg);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease, padding 0.3s ease;
+                padding: 0 24px;
             }
             .nav-links.open {
-                display: flex;
+                max-height: 400px;
+                padding: 24px;
             }
             .mobile-toggle {
                 display: block;
@@ -313,7 +359,7 @@
             font-weight: 800;
             letter-spacing: -0.04em;
             line-height: 1.05;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .hero-content .title-role {
@@ -384,6 +430,14 @@
             font-size: 0.85rem;
             line-height: 1.9;
             overflow-x: auto;
+            overflow-y: hidden;
+        }
+        .hero-code-block pre {
+            margin: 0;
+        }
+        .hero-code-block code {
+            font-family: inherit;
+            font-size: inherit;
         }
         .hero-code-block .line {
             display: flex;
@@ -812,6 +866,15 @@
             flex-direction: column;
             gap: 16px;
         }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
         .contact-form input,
         .contact-form textarea {
             padding: 14px 18px;
@@ -837,6 +900,15 @@
         .contact-form .btn {
             align-self: flex-start;
         }
+        .form-error {
+            color: #e00;
+            font-size: 0.8rem;
+            margin-top: 4px;
+            display: none;
+        }
+        .form-error.visible {
+            display: block;
+        }
 
         @media (max-width: 768px) {
             .contact-wrap {
@@ -860,7 +932,7 @@
         }
 
         /* ============================================================
-                   SCROLL ANIMATIONS (simple reveal)
+                   SCROLL ANIMATIONS with stagger
                    ============================================================ */
         .reveal {
             opacity: 0;
@@ -871,6 +943,22 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Simple stagger via nth-child – works with any grid */
+        .projects-grid .reveal:nth-child(1) { transition-delay: 0.05s; }
+        .projects-grid .reveal:nth-child(2) { transition-delay: 0.1s; }
+        .projects-grid .reveal:nth-child(3) { transition-delay: 0.15s; }
+        .projects-grid .reveal:nth-child(4) { transition-delay: 0.2s; }
+        .projects-grid .reveal:nth-child(5) { transition-delay: 0.25s; }
+        .projects-grid .reveal:nth-child(6) { transition-delay: 0.3s; }
+        .projects-grid .reveal:nth-child(7) { transition-delay: 0.35s; }
+        .projects-grid .reveal:nth-child(8) { transition-delay: 0.4s; }
+        .ui-grid .reveal:nth-child(1) { transition-delay: 0.05s; }
+        .ui-grid .reveal:nth-child(2) { transition-delay: 0.1s; }
+        .ui-grid .reveal:nth-child(3) { transition-delay: 0.15s; }
+        .ui-grid .reveal:nth-child(4) { transition-delay: 0.2s; }
+        .ui-grid .reveal:nth-child(5) { transition-delay: 0.25s; }
+        .ui-grid .reveal:nth-child(6) { transition-delay: 0.3s; }
 
         /* ============================================================
                    RESPONSIVE TWEAKS
@@ -895,6 +983,8 @@
 </head>
 
 <body>
+    <!-- Skip to content -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- ============================================================
     HEADER
@@ -903,26 +993,30 @@
         <div class="header-inner">
             <a href="#" class="logo">Amirhossein<span>.</span></a>
 
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#ui-engineering">UI Engineering</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+            <nav aria-label="Main navigation">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#ui-engineering">UI Engineering</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
 
             <div class="header-actions">
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                    <i class="fas fa-moon" id="themeIcon"></i>
+                <button class="theme-toggle" id="themeToggle" aria-label="Switch to dark theme" aria-pressed="false" role="switch">
+                    <i class="fas fa-moon" aria-hidden="true"></i>
+                    <span class="sr-only" id="themeLabel">Dark mode</span>
                 </button>
-                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
-                    <i class="fas fa-bars"></i>
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
     </header>
 
+    <main id="main-content">
     <!-- ============================================================
     HERO
     ============================================================ -->
@@ -930,36 +1024,36 @@
         <div class="container">
             <div class="hero-grid">
                 <div class="hero-content">
-                    <div class="badge" style="margin-bottom:16px;">Senior Front-end Engineer</div>
+                    <span class="badge">Senior Front-end Engineer</span>
                     <h1>Amirhossein</h1>
-                    <div class="title-role">Senior Front-end Engineer</div>
+                    <p class="title-role">Building scalable UI systems</p>
                     <p class="hero-desc">
-                        Building scalable UI systems with performance-first architecture
-                        and design precision. <span class="text-gradient">5 years</span> of
+                        Performance-first architecture and design precision.
+                        <span class="text-gradient">5 years</span> of
                         production-grade engineering.
                     </p>
                     <div class="hero-cta">
                         <a href="#projects" class="btn btn-primary">
-                            <i class="fas fa-arrow-right"></i> View Projects
+                            <i class="fas fa-arrow-right" aria-hidden="true"></i> View Projects
                         </a>
                         <a href="#contact" class="btn btn-outline">
-                            <i class="fas fa-paper-plane"></i> Contact
+                            <i class="fas fa-paper-plane" aria-hidden="true"></i> Contact
                         </a>
                     </div>
                 </div>
 
                 <div class="hero-visual">
-                    <div class="hero-code-block">
-                        <div class="line"><span class="num">1</span><span class="code"><span class="kw">const</span> engineer = {</span></div>
-                        <div class="line"><span class="num">2</span><span class="code">&nbsp;&nbsp;name: <span class="str">'Amirhossein'</span>,</span></div>
-                        <div class="line"><span class="num">3</span><span class="code">&nbsp;&nbsp;role: <span class="str">'Senior Front-end'</span>,</span></div>
-                        <div class="line"><span class="num">4</span><span class="code">&nbsp;&nbsp;focus: <span class="str">'UI Systems · Performance'</span>,</span></div>
-                        <div class="line"><span class="num">5</span><span class="code">&nbsp;&nbsp;experience: <span class="fn">5</span>,</span></div>
-                        <div class="line"><span class="num">6</span><span class="code">&nbsp;&nbsp;projects: <span class="fn">20+</span>,</span></div>
-                        <div class="line"><span class="num">7</span><span class="code">&nbsp;&nbsp;stack: [<span class="str">'React'</span>, <span class="str">'Next.js'</span>, <span class="str">'TypeScript'</span>],</span></div>
-                        <div class="line"><span class="num">8</span><span class="code">&nbsp;&nbsp;<span class="cmt">// Chemistry → Code</span></span></div>
-                        <div class="line"><span class="num">9</span><span class="code">};</span></div>
-                    </div>
+                    <figure class="hero-code-block" aria-label="Code snippet: A JavaScript object representing an engineer with properties name, role, focus, experience, and stack">
+                        <pre><code class="language-js"><span class="line"><span class="num">1</span><span class="code"><span class="kw">const</span> engineer = {</span></span>
+<span class="line"><span class="num">2</span><span class="code">&nbsp;&nbsp;name: <span class="str">'Amirhossein'</span>,</span></span>
+<span class="line"><span class="num">3</span><span class="code">&nbsp;&nbsp;role: <span class="str">'Senior Front-end'</span>,</span></span>
+<span class="line"><span class="num">4</span><span class="code">&nbsp;&nbsp;focus: <span class="str">'UI Systems · Performance'</span>,</span></span>
+<span class="line"><span class="num">5</span><span class="code">&nbsp;&nbsp;experience: <span class="fn">5</span>,</span></span>
+<span class="line"><span class="num">6</span><span class="code">&nbsp;&nbsp;projects: <span class="fn">20+</span>,</span></span>
+<span class="line"><span class="num">7</span><span class="code">&nbsp;&nbsp;stack: [<span class="str">'React'</span>, <span class="str">'Next.js'</span>, <span class="str">'TypeScript'</span>],</span></span>
+<span class="line"><span class="num">8</span><span class="code">&nbsp;&nbsp;<span class="cmt">// Chemistry → Code</span></span></span>
+<span class="line"><span class="num">9</span><span class="code">};</span></span></code></pre>
+                    </figure>
                 </div>
             </div>
         </div>
@@ -1004,8 +1098,8 @@
                         <span class="label">UI Systems Built</span>
                     </div>
                     <div class="stat-card">
-                        <span class="number">99%</span>
-                        <span class="label">Lighthouse Performance</span>
+                        <span class="number">95+</span>
+                        <span class="label">Lighthouse Score</span>
                     </div>
                 </div>
             </div>
@@ -1112,8 +1206,8 @@
                         <span>WebSocket</span><span>D3</span><span>RBAC</span><span>SSR</span>
                     </div>
                     <div class="p-links">
-                        <a href="#"><i class="fab fa-github"></i> Code</a>
-                        <a href="#"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        <a href="#" aria-label="View source code on GitHub"><i class="fab fa-github" aria-hidden="true"></i> Code</a>
+                        <a href="#" aria-label="View live demo"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Demo</a>
                     </div>
                 </div>
 
@@ -1129,8 +1223,8 @@
                         <span>WCAG AA</span><span>Figma API</span><span>Jest</span><span>Chromatic</span>
                     </div>
                     <div class="p-links">
-                        <a href="#"><i class="fab fa-github"></i> Code</a>
-                        <a href="#"><i class="fas fa-external-link-alt"></i> Storybook</a>
+                        <a href="#" aria-label="View source code on GitHub"><i class="fab fa-github" aria-hidden="true"></i> Code</a>
+                        <a href="#" aria-label="View Storybook documentation"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Storybook</a>
                     </div>
                 </div>
 
@@ -1146,8 +1240,8 @@
                         <span>Server Components</span><span>Stripe</span><span>ISR</span><span>Zustand</span>
                     </div>
                     <div class="p-links">
-                        <a href="#"><i class="fab fa-github"></i> Code</a>
-                        <a href="#"><i class="fas fa-external-link-alt"></i> Live</a>
+                        <a href="#" aria-label="View source code on GitHub"><i class="fab fa-github" aria-hidden="true"></i> Code</a>
+                        <a href="#" aria-label="View live website"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Live</a>
                     </div>
                 </div>
 
@@ -1163,8 +1257,8 @@
                         <span>WebSocket</span><span>Redux Toolkit</span><span>Data Grid</span>
                     </div>
                     <div class="p-links">
-                        <a href="#"><i class="fab fa-github"></i> Code</a>
-                        <a href="#"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        <a href="#" aria-label="View source code on GitHub"><i class="fab fa-github" aria-hidden="true"></i> Code</a>
+                        <a href="#" aria-label="View live demo"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Demo</a>
                     </div>
                 </div>
 
@@ -1180,8 +1274,8 @@
                         <span>Radix UI</span><span>Zag.js</span><span>Jest</span><span>Playwright</span>
                     </div>
                     <div class="p-links">
-                        <a href="#"><i class="fab fa-github"></i> Code</a>
-                        <a href="#"><i class="fas fa-external-link-alt"></i> Docs</a>
+                        <a href="#" aria-label="View source code on GitHub"><i class="fab fa-github" aria-hidden="true"></i> Code</a>
+                        <a href="#" aria-label="View documentation"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Docs</a>
                     </div>
                 </div>
 
@@ -1197,8 +1291,8 @@
                         <span>Liveblocks</span><span>Prisma</span><span>tRPC</span><span>Zod</span>
                     </div>
                     <div class="p-links">
-                        <a href="#"><i class="fab fa-github"></i> Code</a>
-                        <a href="#"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        <a href="#" aria-label="View source code on GitHub"><i class="fab fa-github" aria-hidden="true"></i> Code</a>
+                        <a href="#" aria-label="View live demo"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Demo</a>
                     </div>
                 </div>
 
@@ -1214,8 +1308,8 @@
                         <span>Stripe</span><span>Firebase</span><span>React Router</span>
                     </div>
                     <div class="p-links">
-                        <a href="#"><i class="fab fa-github"></i> Code</a>
-                        <a href="#"><i class="fas fa-external-link-alt"></i> Live</a>
+                        <a href="#" aria-label="View source code on GitHub"><i class="fab fa-github" aria-hidden="true"></i> Code</a>
+                        <a href="#" aria-label="View live website"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Live</a>
                     </div>
                 </div>
 
@@ -1231,8 +1325,8 @@
                         <span>Recharts</span><span>NextAuth</span><span>SWR</span><span>Zod</span>
                     </div>
                     <div class="p-links">
-                        <a href="#"><i class="fab fa-github"></i> Code</a>
-                        <a href="#"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        <a href="#" aria-label="View source code on GitHub"><i class="fab fa-github" aria-hidden="true"></i> Code</a>
+                        <a href="#" aria-label="View live demo"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Demo</a>
                     </div>
                 </div>
 
@@ -1252,32 +1346,32 @@
             </p>
             <div class="ui-grid">
                 <div class="ui-card reveal">
-                    <span class="icon"><i class="fas fa-cubes"></i></span>
+                    <span class="icon" aria-hidden="true"><i class="fas fa-cubes"></i></span>
                     <h4>Reusable Component System</h4>
                     <p>Atomic design methodology with strict separation of concerns. Every component is isolated, tested, and documented.</p>
                 </div>
                 <div class="ui-card reveal">
-                    <span class="icon"><i class="fas fa-layer-group"></i></span>
+                    <span class="icon" aria-hidden="true"><i class="fas fa-layer-group"></i></span>
                     <h4>Scalable UI Architecture</h4>
                     <p>Feature‑based folder structure, custom hooks, and context providers that keep complexity manageable at any scale.</p>
                 </div>
                 <div class="ui-card reveal">
-                    <span class="icon"><i class="fas fa-palette"></i></span>
+                    <span class="icon" aria-hidden="true"><i class="fas fa-palette"></i></span>
                     <h4>Design System Thinking</h4>
                     <p>From Figma tokens to production code — a unified language across design and engineering for consistent experiences.</p>
                 </div>
                 <div class="ui-card reveal">
-                    <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
+                    <span class="icon" aria-hidden="true"><i class="fas fa-tachometer-alt"></i></span>
                     <h4>Performance Optimization</h4>
                     <p>Lazy loading, code splitting, memoization, and bundle analysis to deliver sub‑second interactions and 95+ Lighthouse scores.</p>
                 </div>
                 <div class="ui-card reveal">
-                    <span class="icon"><i class="fas fa-code-branch"></i></span>
+                    <span class="icon" aria-hidden="true"><i class="fas fa-code-branch"></i></span>
                     <h4>Clean Separation of Concerns</h4>
                     <p>UI logic, business logic, and data fetching are strictly decoupled for maintainability and testability.</p>
                 </div>
                 <div class="ui-card reveal">
-                    <span class="icon"><i class="fas fa-microscope"></i></span>
+                    <span class="icon" aria-hidden="true"><i class="fas fa-microscope"></i></span>
                     <h4>Analytical Problem Solving</h4>
                     <p>Chemistry‑trained mindset: break down complexity, form hypotheses, test, and iterate with data‑driven decisions.</p>
                 </div>
@@ -1300,29 +1394,43 @@
                         projects. If you're building something ambitious, let's talk.
                     </p>
                     <div class="contact-socials">
-                        <a href="mailto:amirhossein@example.com"><i class="fas fa-envelope"></i> Email</a>
-                        <a href="#"><i class="fab fa-github"></i> GitHub</a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                        <a href="mailto:amirhossein@example.com"><i class="fas fa-envelope" aria-hidden="true"></i> Email</a>
+                        <a href="#" aria-label="Visit GitHub profile"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a>
+                        <a href="#" aria-label="Visit LinkedIn profile"><i class="fab fa-linkedin-in" aria-hidden="true"></i> LinkedIn</a>
                     </div>
                 </div>
-                <form class="contact-form reveal" id="contactForm">
-                    <input type="text" placeholder="Your name" required />
-                    <input type="email" placeholder="Your email" required />
-                    <textarea placeholder="Tell me about your project or role..." required></textarea>
+                <form class="contact-form reveal" id="contactForm" novalidate>
+                    <div class="form-group">
+                        <label for="name">Your name</label>
+                        <input type="text" id="name" placeholder="e.g. Jane Smith" required autocomplete="name" />
+                        <span class="form-error" id="nameError">Please enter your name.</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your email</label>
+                        <input type="email" id="email" placeholder="e.g. jane@example.com" required autocomplete="email" />
+                        <span class="form-error" id="emailError">Please enter a valid email address.</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your message</label>
+                        <textarea id="message" placeholder="Tell me about your project or role..." required></textarea>
+                        <span class="form-error" id="messageError">Please include a message.</span>
+                    </div>
                     <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-paper-plane"></i> Send Message
+                        <i class="fas fa-paper-plane" aria-hidden="true"></i> Send Message
                     </button>
+                    <div id="formFeedback" class="sr-only" role="status" aria-live="polite"></div>
                 </form>
             </div>
         </div>
     </section>
+    </main>
 
     <!-- ============================================================
     FOOTER
     ============================================================ -->
     <footer class="site-footer">
         <div class="container">
-            <p>© 2026 <span>Amirhossein</span> — Senior Front-end Engineer</p>
+            <p>© <span id="currentYear">2025</span> <span>Amirhossein</span> — Senior Front-end Engineer</p>
         </div>
     </footer>
 
@@ -1333,18 +1441,28 @@
         (function() {
             'use strict';
 
+            // ---- Dynamic year ----
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
             // ---- Theme toggle ----
             const themeToggle = document.getElementById('themeToggle');
-            const themeIcon = document.getElementById('themeIcon');
+            const themeIcon = themeToggle.querySelector('i');
+            const themeLabel = document.getElementById('themeLabel');
             const html = document.documentElement;
 
             function setTheme(theme) {
                 html.setAttribute('data-theme', theme);
-                localStorage.setItem('theme', theme);
-                themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+                try { localStorage.setItem('theme', theme); } catch(e) {}
+                const isDark = theme === 'dark';
+                themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+                themeLabel.textContent = isDark ? 'Light mode' : 'Dark mode';
+                themeToggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+                themeToggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
             }
 
-            const saved = localStorage.getItem('theme');
+            const saved = (function() {
+                try { return localStorage.getItem('theme'); } catch(e) { return null; }
+            })();
             if (saved) {
                 setTheme(saved);
             } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -1360,19 +1478,21 @@
             const mobileToggle = document.getElementById('mobileToggle');
             const navLinks = document.getElementById('navLinks');
 
+            function closeMenu() {
+                navLinks.classList.remove('open');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+                mobileToggle.innerHTML = '<i class="fas fa-bars" aria-hidden="true"></i>';
+            }
+
             mobileToggle.addEventListener('click', function() {
-                navLinks.classList.toggle('open');
-                this.innerHTML = navLinks.classList.contains('open') ?
-                    '<i class="fas fa-times"></i>' :
-                    '<i class="fas fa-bars"></i>';
+                const isOpen = navLinks.classList.toggle('open');
+                this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                this.innerHTML = isOpen ? '<i class="fas fa-times" aria-hidden="true"></i>' : '<i class="fas fa-bars" aria-hidden="true"></i>';
             });
 
             // Close menu on link click (mobile)
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', function() {
-                    navLinks.classList.remove('open');
-                    mobileToggle.innerHTML = '<i class="fas fa-bars"></i>';
-                });
+            document.querySelectorAll('#navLinks a').forEach(link => {
+                link.addEventListener('click', closeMenu);
             });
 
             // ---- Scroll reveal (Intersection Observer) ----
@@ -1382,6 +1502,7 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // stop watching once visible
                     }
                 });
             }, {
@@ -1391,19 +1512,67 @@
 
             reveals.forEach(el => observer.observe(el));
 
-            // ---- Contact form (simple demo) ----
+            // ---- Contact form with validation ----
             const form = document.getElementById('contactForm');
+            const feedback = document.getElementById('formFeedback');
+            const fields = {
+                name: document.getElementById('name'),
+                email: document.getElementById('email'),
+                message: document.getElementById('message')
+            };
+            const errors = {
+                name: document.getElementById('nameError'),
+                email: document.getElementById('emailError'),
+                message: document.getElementById('messageError')
+            };
+
+            function showError(fieldId) {
+                errors[fieldId].classList.add('visible');
+            }
+            function clearErrors() {
+                Object.values(errors).forEach(e => e.classList.remove('visible'));
+            }
+
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
+                clearErrors();
+                let valid = true;
+
+                if (!fields.name.value.trim()) {
+                    showError('name');
+                    valid = false;
+                }
+                const emailValue = fields.email.value.trim();
+                if (!emailValue || !/^\S+@\S+\.\S+$/.test(emailValue)) {
+                    showError('email');
+                    valid = false;
+                }
+                if (!fields.message.value.trim()) {
+                    showError('message');
+                    valid = false;
+                }
+
+                if (!valid) {
+                    feedback.textContent = 'Please fix the errors above.';
+                    return;
+                }
+
+                // Simulate sending
                 const btn = form.querySelector('.btn');
-                const original = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-check"></i> Sent!';
-                btn.style.pointerEvents = 'none';
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-pulse" aria-hidden="true"></i> Sending...';
+                btn.disabled = true;
+
                 setTimeout(() => {
-                    btn.innerHTML = original;
-                    btn.style.pointerEvents = 'auto';
-                    form.reset();
-                }, 2000);
+                    feedback.textContent = 'Message sent successfully! (demo)';
+                    btn.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i> Sent!';
+                    setTimeout(() => {
+                        btn.innerHTML = originalHTML;
+                        btn.disabled = false;
+                        form.reset();
+                        feedback.textContent = '';
+                    }, 2500);
+                }, 1000);
             });
 
         })();
