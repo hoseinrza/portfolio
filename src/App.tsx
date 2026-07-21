@@ -14,7 +14,11 @@ const BackgroundCanvas = lazy(() => import('./background/BackgroundCanvas'))
 function ScrollToTop() {
   const { pathname, hash } = useLocation()
   useEffect(() => {
-    if (!hash) window.scrollTo(0, 0)
+    if (hash) {
+      document.querySelector(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    } else {
+      window.scrollTo(0, 0)
+    }
   }, [pathname, hash])
   return null
 }

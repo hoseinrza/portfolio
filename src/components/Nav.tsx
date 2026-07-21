@@ -35,9 +35,9 @@ export default function Nav() {
           <ul className="flex items-center gap-8 text-sm font-medium text-[var(--text-secondary)]">
             {links.map((l) => (
               <li key={l.href} className="group relative">
-                <a href={l.href} className="transition-colors hover:text-[var(--text-primary)]">
+                <Link to={l.href} className="transition-colors hover:text-[var(--text-primary)]">
                   {l.label}
-                </a>
+                </Link>
                 <span className="absolute -bottom-1 left-0 h-px w-0 bg-[var(--accent)] transition-all duration-250 group-hover:w-full" />
               </li>
             ))}
@@ -93,9 +93,9 @@ export default function Nav() {
         <ul className="flex flex-col gap-3 px-6 text-sm font-medium text-[var(--text-secondary)]">
           {links.map((l) => (
             <li key={l.href}>
-              <a href={l.href} className="block py-1">
+              <Link to={l.href} className="block py-1">
                 {l.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

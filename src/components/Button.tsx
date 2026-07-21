@@ -1,9 +1,9 @@
 import { type ReactNode } from 'react'
+import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 
 type Props = {
   href?: string
-  to?: string
   variant?: 'primary' | 'outline' | 'ghost'
   children: ReactNode
   className?: string
@@ -37,6 +37,13 @@ export default function Button({
   const cls = clsx(base, variants[variant], className)
 
   if (href) {
+    if (href.startsWith('/') && !target) {
+      return (
+        <Link to={href} className={cls} onClick={onClick}>
+          {children}
+        </Link>
+      )
+    }
     return (
       <a href={href} className={cls} onClick={onClick} target={target} rel={rel}>
         {children}
