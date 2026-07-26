@@ -18,7 +18,8 @@ npm install
 npm run dev      # start the dev server (http://localhost:5181)
 npm run build    # type-check and build for production
 npm run preview  # preview the production build
-npm run lint     # type-check only
+npm run lint     # ESLint (TypeScript, react-hooks, jsx-a11y)
+npm run typecheck # type-check only
 ```
 
 ## Project Structure

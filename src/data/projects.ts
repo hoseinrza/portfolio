@@ -7,7 +7,6 @@ export type Project = {
   highlights: string[]
   github: string
   demo?: string
-  stars: number
   detail: {
     overview: string
     problem: string
@@ -28,7 +27,6 @@ export const projects: Project[] = [
     highlights: ['Offline-first', 'P2P transport', 'Secure file sharing'],
     github: 'https://github.com/hoseinrza/OpenBridge',
     demo: 'https://open-bridge-plum.vercel.app',
-    stars: 1,
     detail: {
       overview:
         'OpenBridge explores how people can keep talking to each other when the internet doesn’t cooperate — outages, censorship, crowded venues, disaster zones. Instead of routing every message through a central server, devices discover each other directly over local WiFi/Bluetooth and exchange messages and files peer-to-peer.',
@@ -52,7 +50,6 @@ export const projects: Project[] = [
     highlights: ['Genetics notation', 'In-browser, no install', 'Teaching & research use'],
     github: 'https://github.com/hoseinrza/Persian-Pedigree',
     demo: 'https://hoseinrza-github-io.vercel.app',
-    stars: 2,
     detail: {
       overview:
         'A direct intersection of the chemistry/life-sciences side and the engineering side: a tool for drawing and reading family trees using the standardized symbols geneticists and genetic counselors actually use, running entirely in the browser.',
@@ -75,7 +72,6 @@ export const projects: Project[] = [
     stack: ['Cloudflare Workers', 'TypeScript', 'Telegram Bot API', 'Cloudflare KV'],
     highlights: ['Serverless', 'No database needed', 'Full admin panel', 'MIT licensed'],
     github: 'https://github.com/hoseinrza/shoptelgram',
-    stars: 2,
     detail: {
       overview:
         'A full e-commerce experience built entirely inside a Telegram bot: product browsing by category, cart, order placement and tracking, customer support, and a complete admin panel for managing products, orders, sales stats, and broadcasts — all in Persian.',
@@ -98,7 +94,6 @@ export const projects: Project[] = [
     stack: ['PHP', 'MySQL', 'WordPress', 'JavaScript'],
     highlights: ['Question banks', 'Auto-scoring', 'WordPress integration'],
     github: 'https://github.com/hoseinrza/examhub',
-    stars: 2,
     detail: {
       overview:
         'An online examination system aimed at admins who need to build question banks, assemble exams from them, and assign those exams to students — who then take timed multiple-choice tests with scoring handled automatically.',
