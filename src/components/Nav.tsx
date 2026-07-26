@@ -54,7 +54,7 @@ export default function Nav() {
           <motion.button
             onClick={toggle}
             aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
-            aria-pressed={theme === 'dark'}
+            aria-checked={theme === 'dark'}
             role="switch"
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.92 }}

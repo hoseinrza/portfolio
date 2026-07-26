@@ -291,7 +291,9 @@ function Contact() {
     e.preventDefault()
     if (!validate()) return
     const subject = encodeURIComponent(`Portfolio contact from ${form.name}${form.company ? ` (${form.company})` : ''}`)
-    const body = encodeURIComponent(`${form.message}\n\n— ${form.name} (${form.email})`)
+    const body = encodeURIComponent(
+      `${form.message}\n\n— ${form.name} (${form.email})${form.company ? `\n${form.company}` : ''}`,
+    )
     window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`
     setSent(true)
   }
@@ -352,10 +354,13 @@ function Contact() {
               </div>
             ))}
             <Button type="submit" variant="primary" className="self-start">
-              Send Message
+              Open in Email Client
             </Button>
+            <p className="text-xs text-[var(--text-muted)]">
+              This opens your default email app with the message pre-filled — you'll still need to hit send there.
+            </p>
             <div role="status" aria-live="polite" className="text-sm text-[var(--success)]">
-              {sent && 'Opening your email client…'}
+              {sent && 'Opened your email client — check for a draft to send.'}
             </div>
           </form>
         </Reveal>

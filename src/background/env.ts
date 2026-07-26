@@ -16,10 +16,15 @@ export function prefersReducedMotion(): boolean {
   return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
 }
 
-/** Rough, cheap heuristic — not exact, just enough to scale particle counts down. */
+/**
+ * Rough, cheap heuristic — not exact, just enough to scale particle counts down.
+ * `navigator.deviceMemory` doesn't exist in Safari/Firefox at all, so its absence
+ * must not be treated as "low memory" — that would flag every non-Chromium
+ * desktop browser as low-end regardless of actual hardware.
+ */
 export function isLowEndDevice(): boolean {
   const cores = navigator.hardwareConcurrency ?? 4
-  const mem = (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 4
+  const mem = (navigator as Navigator & { deviceMemory?: number }).deviceMemory
   const isNarrow = window.innerWidth < 768
-  return cores <= 4 || mem <= 4 || isNarrow
+  return cores <= 2 || (mem !== undefined && mem <= 2) || isNarrow
 }
